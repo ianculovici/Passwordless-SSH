@@ -19,6 +19,10 @@ ssh-keygen -t rsa -b 8192 -f ~/.ssh/${KeyFileName} -P ""
 
 for UserHostPort in "${UserHostPortList}"; do
   IFS=: read UserHost port <<< ${UserHostPort}
-  ssh ${User}@${b} $port "mkdir -p .ssh;chmod 700 .ssh"
-  cat .ssh/${KeyFileName}.pub | ssh ${User}@${Host} $port 'cat >> .ssh/authorized_keys; chmod 640 .ssh/authorized_keys'
+  if [ "${port}" != "" ]; then
+	port = "-p ${port}"
+  fi
+  ssh ${User}@${b} ${port} "mkdir -p .ssh;chmod 700 .ssh"
+  cat .ssh/${KeyFileName}.pub | ssh ${User}@${Host} ${port} 'cat >> .ssh/authorized_keys; chmod 640 .ssh/authorized_keys'
 done
+
