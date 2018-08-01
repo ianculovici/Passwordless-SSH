@@ -22,7 +22,7 @@ for UserHostPort in ${UserHostPortList}; do
   if [ "${port}" != "" ]; then
 	port = "-p ${port}"
   fi
- cat ~/.ssh/${KeyFileName}.pub | ssh ${UserHost} ${port} \
+  cat ~/.ssh/${KeyFileName}.pub | ssh -oStrictHostKeyChecking=no -oCheckHostIP=no ${UserHost} ${port} \
     'mkdir -p .ssh; chmod 700 .ssh; cat >> .ssh/authorized_keys; chmod 640 .ssh/authorized_keys'
 done
 
