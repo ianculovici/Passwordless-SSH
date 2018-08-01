@@ -24,7 +24,7 @@ for UserHostPort in ${UserHostPortList}; do
   fi
  echo ${UserHost}
  ssh ${UserHost} ${port} "mkdir -p .ssh;chmod 700 .ssh"
- cat .ssh/${KeyFileName}.pub | ssh ${UserHost} ${port} \
+ cat ~/.ssh/${KeyFileName}.pub | ssh ${UserHost} ${port} \
     'cat >> .ssh/authorized_keys; chmod 640 .ssh/authorized_keys'
 done
 
